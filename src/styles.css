@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(180deg, #83a4d4, #b6fbff);
+    width: 100vw;
+    height: 100vh;
+    background-attachment: fixed;
+  }
+  
+  .fish-species {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .fish-species h3 {
+    margin-top: 0;
+  }
+  
+  .fish-species p {
+    margin: 0 0 10px;
+  }
+  
+  .fish-species input[type="number"] {
+    width: 100px;
+    padding: 5px;
+    border: none;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  .fish-species button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .fish-species button:hover {
+    background-color: #0056b3;
+  }
+  
+  .statistics {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+  }
+  
