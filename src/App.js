@@ -8,10 +8,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Prototype Fish Tracker</h1>
-        <FishSpecies name="Salmón" population={100} />
-        <FishSpecies name="Atún" population={150} />
-        <FishSpecies name="Bacalao" population={80} />
+        <h1>Prototype Fish Tracker Experimental</h1>
+        <FishSpecies name="Salmo" population={100} />
+        <FishSpecies name="Thunnus thynnus" population={150} />
+        <FishSpecies name="Gadus morhua" population={80} />
       </div>
     );
   }
