@@ -1,13 +1,45 @@
+
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+
+import {createBrowserRouter, Navigate, RouterProvider,} from "react-router-dom";
+import ErrorPage from "./error-page";
+import Login from './login';
+import Dashboard from './dashboard';
+
+//taller
+
+import SimulatorSpecies from './Simulator';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Navigate to="Login"/>,
+    errorElement: <ErrorPage/>,
+  },
+  {
+    path: "/Home",
+    element: <SimulatorSpecies/>,
+  },
+  {
+    path: "/Login",
+    element: <Login/>,
+  },
+  {
+    path: "/data",
+    element: <Dashboard/>,
+  },
+  
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router}/>
   </React.StrictMode>
 );
 

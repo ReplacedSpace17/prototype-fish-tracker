@@ -24,7 +24,7 @@ body {
   }
   
   .fish-species input[type="number"] {
-    width: 100px;
+    width: 120px;
     padding: 5px;
     border: none;
     background-color: #f0f0f0;
@@ -33,7 +33,7 @@ body {
   }
   
   .fish-species button {
-    background-color: #007bff;
+    background-color: #007bffde;
     color: #fff;
     border: none;
     border-radius: 5px;

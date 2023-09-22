@@ -1,8 +1,50 @@
 import React, { Component } from 'react';
 import { mean, standardDeviation } from 'simple-statistics';
 import { Chart } from 'react-google-charts';
+import Swal from 'sweetalert2'
+import axios from 'axios'; // Importa Axios
+import backendUrl from './serverConfig';
+import { useNavigate } from "react-router-dom";
 
+let poblacion, promedio, desv, min, max, mediana, generacion, especie;
+
+const Guardar = async (event) => {
+  event.preventDefault();
+  const formData = {
+    Especie: especie,
+    Generacion: generacion,
+    Poblacion: poblacion,
+    Media: promedio,
+    DesvEst: desv,
+    Mediana: mediana,
+    PoblacionMinima: min,
+    PoblacionMaxima: max,
+  }
+
+  try {
+    const response = await axios.post(`${backendUrl}/newSimulationInsert`, formData); // Reemplaza backendUrl con la URL correcta
+
+    if (response.status === 201) {
+      // La solicitud fue exitosa, puedes manejar la respuesta aquí
+      //almacenar en bd
+      Swal.fire(
+        'Agregado',
+        'Se ha guardado la simulación' 
+
+      )
+    }
+    else {
+
+    }
+  } catch (error) {
+    // Maneja los errores aquí
+    console.error('Error en la solicitud:', error);
+  }
+
+}
 class FishSpecies extends Component {
+
+
   constructor(props) {
     super(props);
     this.state = {
@@ -31,6 +73,7 @@ class FishSpecies extends Component {
   simulateChange = () => {
     const growthRate = this.getRandomGrowthRate();
     const { population } = this.state;
+
     const newPopulation = Math.floor(population * growthRate);
     this.setState((prevState) => ({
       population: Math.max(newPopulation, 0),
@@ -40,6 +83,10 @@ class FishSpecies extends Component {
         [prevState.chartData.length, newPopulation],
       ],
     }));
+
+    //guardar valores a la bd
+
+    poblacion = newPopulation;
   };
 
   getRandomGrowthRate = () => {
@@ -56,7 +103,15 @@ class FishSpecies extends Component {
     const median = populationHistory.length % 2 === 0
       ? (populationHistory[populationHistory.length / 2 - 1] + populationHistory[populationHistory.length / 2]) / 2
       : populationHistory[Math.floor(populationHistory.length / 2)];
-  
+
+    promedio = average.toFixed(2);
+    desv = stdDev.toFixed(2);
+    max = maxPopulation;
+    min = minPopulation;
+    mediana = median;
+    var datoGen = String(populationHistory);
+    datoGen = datoGen.split(",");
+    generacion = datoGen.length;
     return (
       <div className="statistics">
         <p>Promedio de población: {average.toFixed(2)}</p>
@@ -67,11 +122,11 @@ class FishSpecies extends Component {
       </div>
     );
   };
-  
+
 
   render() {
     const { name, population, chartData } = this.state;
-
+    especie = name;
     return (
       <div className="fish-species">
         <h3>{name}</h3>
@@ -84,7 +139,8 @@ class FishSpecies extends Component {
         <button onClick={this.simulateChange}>Simular Cambio</button>
         <button onClick={() => this.updatePopulation(1)}>Incrementar</button>
         <button onClick={() => this.updatePopulation(-1)}>Decrementar</button>
-       
+        <button onClick={Guardar}>Guardar valores</button>
+
         <Chart
           width={'100%'}
           height={'300px'}
